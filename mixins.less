@@ -1,0 +1,266 @@
+/* Reusable Mixin Classes
+*
+* Index
+* 1. Background Clipping
+* 2. Border Radius
+* 3. Borders
+* 4. Content Columns
+* 5. Font Stacks
+* 6. Gradients
+* 7. Input placeholder text
+* 8. Opacity
+* 9. Shadows
+* 10. Image Replace
+* 11. Image Mask
+* 12. Transorms
+* 13. Transitions
+******************************************/
+
+/* 1. Background clipping
+******************************************/
+
+.background-clip(@clip) {
+  -webkit-background-clip: @clip;
+     -moz-background-clip: @clip;
+          background-clip: @clip;
+}
+
+/* 2. Border Radius
+******************************************/
+
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+/* 3. Borders
+******************************************/
+
+.borders(@top:1px, @right:1px, @bottom:1px, @left:1px){
+  border-top:@top;
+  border-right:@right;
+  border-bottom:@bottom;
+  border-left:@left;
+}
+
+/* 4. Content Columns
+******************************************/
+
+.content-columns(@columnCount, @columnGap: 20px) {
+  -webkit-column-count: @columnCount;
+     -moz-column-count: @columnCount;
+          column-count: @columnCount;
+  -webkit-column-gap: @columnGap;
+     -moz-column-gap: @columnGap;
+          column-gap: @columnGap;
+}
+
+/* 5. Font Stacks
+******************************************/
+
+.shorthand(@weight: normal, @size: 14px, @lineHeight: 20px) {
+  font-size: @size;
+  font-weight: @weight;
+  line-height: @lineHeight;
+}
+.sans-serif(@weight: normal, @size: 14px, @lineHeight: 20px) {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: @size;
+  font-weight: @weight;
+  line-height: @lineHeight;
+}
+.serif(@weight: normal, @size: 14px, @lineHeight: 20px) {
+  font-family: "Georgia", Times New Roman, Times, serif;
+  font-size: @size;
+  font-weight: @weight;
+  line-height: @lineHeight;
+}
+.monospace(@weight: normal, @size: 12px, @lineHeight: 20px) {
+  font-family: "Monaco", Courier New, monospace;
+  font-size: @size;
+  font-weight: @weight;
+  line-height: @lineHeight;
+}
+
+/* 6. Gradients
+******************************************/
+
+.horizontal-g(@startColor: #555, @endColor: #333) {
+  background-color: @endColor;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, right top, from(@startColor), to(@endColor)); // Konqueror
+  background-image: -moz-linear-gradient(left, @startColor, @endColor); // FF 3.6+
+  background-image: -ms-linear-gradient(left, @startColor, @endColor); // IE10
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, @startColor), color-stop(100%, @endColor)); // Safari 4+, Chrome 2+
+  background-image: -webkit-linear-gradient(left, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(left, @startColor, @endColor); // Opera 11.10
+  background-image: linear-gradient(left, @startColor, @endColor); // Le standard
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@startColor,@endColor)); // IE9 and down
+}
+
+.vertical-g(@startColor: #555, @endColor: #333) {
+  background-color: @endColor;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(@startColor), to(@endColor)); // Konqueror
+  background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
+  background-image: -ms-linear-gradient(top, @startColor, @endColor); // IE10
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @startColor), color-stop(100%, @endColor)); // Safari 4+, Chrome 2+
+  background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
+  background-image: linear-gradient(top, @startColor, @endColor); // The standard
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down
+}
+
+.directional-g(@startColor: #555, @endColor: #333, @deg: 45deg) {
+  background-color: @endColor;
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(@deg, @startColor, @endColor); // FF 3.6+
+  background-image: -ms-linear-gradient(@deg, @startColor, @endColor); // IE10
+  background-image: -webkit-linear-gradient(@deg, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(@deg, @startColor, @endColor); // Opera 11.10
+  background-image: linear-gradient(@deg, @startColor, @endColor); // The standard
+}
+
+.vertical-three-colors-g(@startColor: #00b3ee, @midColor: #7a43b6, @colorStop: 50%, @endColor: #c3325f) {
+  background-color: @endColor;
+  background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), color-stop(@colorStop, @midColor), to(@endColor));
+  background-image: -webkit-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+  background-image: -moz-linear-gradient(top, @startColor, @midColor @colorStop, @endColor);
+  background-image: -ms-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+  background-image: -o-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+  background-image: linear-gradient(@startColor, @midColor @colorStop, @endColor);
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down, gets no color-stop at all for proper fallback
+}
+
+/* Gradient Bar Colors for buttons
+******************************************/
+
+.gradient-bar(@primaryColor, @secondaryColor) {
+  #gradient > .vertical-g(@primaryColor, @secondaryColor);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
+  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
+}
+
+/* 7. Input placeholder text
+******************************************/
+
+.place-holder(@color: @grayLight) {
+  :-moz-placeholder {
+    color: @color;
+  }
+  ::-webkit-input-placeholder {
+    color: @color;
+  }
+}
+
+/* 8. Opacity
+******************************************/
+
+.opacity(@opacity: 100) {
+  filter: e(%("alpha(opacity=%d)", @opacity));
+  -khtml-opacity: @opacity / 100;
+    -moz-opacity: @opacity / 100;
+         opacity: @opacity / 100;
+}
+
+
+/* 9. Shadows
+******************************************/
+
+/* Box shadows
+******************************************/
+
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25) ) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+
+/* Inner shadows
+******************************************/
+
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+  box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+}
+
+
+/* 10. Image Replace
+******************************************/
+
+.image-replace(@image, @width, @height, @posX, @posY) {
+    #display > .block();
+    width:@width;
+    height:@height;
+    background:url('@{img-path}/@image') @posX @posY;
+    text-indent:-9999px
+}
+
+/* 11. Image Mask
+******************************************/
+
+.image-mask(@image) {
+  -webkit-mask-image:url('@{img-path}/@image');
+  -moz-mask-image:url('@{img-path}/@image');
+}
+
+/* Inner shadows
+******************************************/
+
+.inner-highlight(@horizontal:-1px, @vertical:1px, @blur:1px, @alpha: 0.2) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(255, 255, 255, @alpha);
+  -moz-box-shadow: inset @horizontal @vertical @blur rgba(255, 255, 255, @alpha);
+  box-shadow: inset @horizontal @vertical @blur rgba(255, 255, 255, @alpha);
+}
+
+/*Text shadows
+******************************************/
+
+.text-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25) ) {
+  -webkit-text-shadow: @shadow;
+     -moz-text-shadow: @shadow;
+          text-shadow: @shadow;
+}
+
+/* 12. Transforms
+******************************************/
+
+.translate(@posX, @posY){
+    -webkit-transform:translate(@arguments);
+    -moz-transform:translate(@arguments);
+    transform:translate(@arguments);
+}
+
+.scale(@scale){
+  -webkit-transform:scale(@scale);
+  -moz-transform:scale(@scale);
+  transform:scale(@scale);
+}
+
+.rotate(@deg){
+  -webkit-transform:rotate(@deg);
+  -moz-transform:rotate(@deg);
+  transform:rotate(@deg);
+}
+
+.skew(@deg){
+  -moz-transform:skew(@deg);
+  -webkit-transform:skew(@deg);
+  transform:skew(@deg);
+}
+
+/* 13. Transitions
+******************************************/
+
+.transition(@transition) {
+     -webkit-transition: @transition;
+        -moz-transition: @transition;
+         -ms-transition: @transition;
+          -o-transition: @transition;
+             transition: @transition;
+}
+
